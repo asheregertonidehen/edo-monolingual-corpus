@@ -5,11 +5,17 @@
 contains Edo (Bini) text scraped from the following links:
 
 https://centreforedostudies.be/Agheyisi-corpus/index.html (4 folktales)
+
 https://centreforedostudies.be/Agheyisi-epub-final/OEBPS/Text/Contents.html (Agheyisi dictionary)
+
 https://centreforedostudies.be/Melzian-epub-final/OEBPS/Text/Contents.html (Hans Dictionary)
+
 https://centreforedostudies.be/Thomas/text/index.html (Thomas dictionary)
+
 https://centreforedostudies.be/Thomas/corpus/index.html (Thomas corpus)
+
 https://centreforedostudies.be/Egharevba/index.html (Jacobs biography)
+
 https://centreforedostudies.be/Bristol/welfare-attendance-leaflet-edo.pdf (edo leaflet)
 
 # references
