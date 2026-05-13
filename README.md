@@ -1,6 +1,8 @@
 # edo-monolingual-corpus
 
-contains edo(bini) text scraped from the following links:
+**this project aims to be ethical and does not contain any ED096/JW300 scraped data**
+
+contains Edo (Bini) text scraped from the following links:
 
 https://centreforedostudies.be/Agheyisi-corpus/index.html (4 folktales)
 https://centreforedostudies.be/Agheyisi-epub-final/OEBPS/Text/Contents.html (Agheyisi dictionary)
@@ -10,13 +12,13 @@ https://centreforedostudies.be/Thomas/corpus/index.html (Thomas corpus)
 https://centreforedostudies.be/Egharevba/index.html (Jacobs biography)
 https://centreforedostudies.be/Bristol/welfare-attendance-leaflet-edo.pdf (edo leaflet)
 
-# SOURCES
+# references
 
-all sourced from:
+(website for source):
 
 1. Centre for Ẹdo Studies. (2025, October 27). Centre for Ẹdo Studies. https://centreforedostudies.be/
 
-individual citations:
+(individual citations):
 
 2. Agheyisi, R. N. (1986). An Ẹdo-English dictionary. Ethiope Publishing Corporation.
 3. Melzian, H. (1937). A concise dictionary of the Bini language of Southern Nigeria. Kegan Paul, Trench, Trubner & Co.
