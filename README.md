@@ -2,6 +2,8 @@
 
 **this project aims to be ethical and does not contain any ED096/JW300 scraped data**
 
+-Creative Commons Zero v1.0 Universal-
+
 contains Edo (Bini) text scraped from the following links:
 
 https://centreforedostudies.be/Agheyisi-corpus/index.html (4 folktales)
