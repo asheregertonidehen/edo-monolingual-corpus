@@ -32,7 +32,6 @@ from collections import Counter
 OUT = Path("edo_corpus")
 OUT.mkdir(exist_ok=True)
 (OUT / "raw").mkdir(exist_ok=True)
-(OUT / "parallel").mkdir(exist_ok=True)
 
 SESSION = requests.Session()
 SESSION.headers.update({
@@ -79,7 +78,7 @@ def save_jsonl(records, path):
 # ── Edo / English detection ───────────────────────────────────────────────────
 
 # Characters used in properly-marked Edo that almost never appear in English
-EDO_MARKERS = set("ẹọẸỌɛƐɔɽãÃr̅R̅")
+EDO_MARKERS = set("ẹọẸỌɛƐɔɽãÃr̅R̅ṣṢʼʻ''ẽẼõÕ")
 
 EN_STOPS = {
     "the","a","an","and","or","but","in","on","at","to","for","of","with",
@@ -127,7 +126,7 @@ def scrape_agheyisi_corpus():
     base = "https://centreforedostudies.be/Agheyisi-corpus/corpus/"
     tale_urls = [f"{base}tale{i}.html" for i in range(1, 5)]
 
-    mono, parallel = [], []
+    mono = []
 
     for url in tale_urls:
         tale = url.split("/")[-1].replace(".html", "")
@@ -142,26 +141,14 @@ def scrape_agheyisi_corpus():
             m = re.match(r"^(\d+)[.]\s*(.+)", bolds[i])
             if m:
                 edo_text = m.group(2).strip()
-                literal  = re.sub(r"^\d+[.]\s*", "", bolds[i+1]).strip() if i+1 < len(bolds) else ""
-                free_en  = re.sub(r"^\d+[.]\s*", "", bolds[i+2]).strip() if i+2 < len(bolds) else ""
-
                 if edo_text and not is_english_only(edo_text):
                     mono.append({"text": edo_text, "source": f"agheyisi_corpus_{tale}", "lang": "edo"})
-                    if free_en:
-                        parallel.append({
-                            "edo": edo_text,
-                            "english_literal": literal,
-                            "english_free": free_en,
-                            "source": f"agheyisi_corpus_{tale}",
-                        })
                 i += 3
             else:
                 i += 1
         time.sleep(0.8)
 
-    save_jsonl(mono,     OUT / "raw"      / "agheyisi_corpus.jsonl")
-    save_jsonl(parallel, OUT / "parallel" / "agheyisi_parallel.jsonl")
-    print(f"       {len(parallel)} parallel pairs")
+    save_jsonl(mono, OUT / "raw" / "agheyisi_corpus.jsonl")
     return mono
 
 
@@ -329,7 +316,7 @@ def scrape_thomas_corpus():
 
     AGH lines are the cleanest Edo. We pair AGH + ENG for parallel data.
     """
-    print("\n[5/6] Thomas Corpus (27 stories + parallel data)")
+    print("\n[5/6] Thomas Corpus (27 stories)")
     index_url = "https://centreforedostudies.be/Thomas/corpus/index.html"
     html = fetch(index_url)
     if not html:
@@ -346,7 +333,7 @@ def scrape_thomas_corpus():
     agh_pat = re.compile(r"^(\d+)\s+AGH\s*[-]\s*(.+)")
     eng_pat = re.compile(r"^(\d+)\s+ENG\s*[-]\s*(.+)")
 
-    mono, parallel = [], []
+    mono = []
 
     for url in page_links:
         html = fetch(url)
@@ -369,26 +356,18 @@ def scrape_thomas_corpus():
         lines = {}
         for subline in raw_lines:
             m_agh = agh_pat.match(subline)
-            m_eng = eng_pat.match(subline)
             if m_agh:
                 lines.setdefault(int(m_agh.group(1)), {})["agh"] = m_agh.group(2).strip()
-            elif m_eng:
-                lines.setdefault(int(m_eng.group(1)), {})["eng"] = m_eng.group(2).strip()
 
         for num in sorted(lines):
             agh = lines[num].get("agh", "")
-            eng = lines[num].get("eng", "")
             if agh and not is_english_only(agh):
                 page_id = url.split("/")[-1].replace(".html", "")
                 mono.append({"text": agh, "source": "thomas_corpus", "lang": "edo", "page": page_id})
-                if eng:
-                    parallel.append({"edo": agh, "english": eng, "source": "thomas_corpus", "page": page_id})
 
         time.sleep(0.8)
 
-    save_jsonl(mono,     OUT / "raw"      / "thomas_corpus.jsonl")
-    save_jsonl(parallel, OUT / "parallel" / "thomas_parallel.jsonl")
-    print(f"       {len(parallel)} parallel pairs")
+    save_jsonl(mono, OUT / "raw" / "thomas_corpus.jsonl")
     return mono
 
 
@@ -506,14 +485,6 @@ def build_corpus(all_records):
     print(f"  Total unique monolingual records : {len(unique):,}")
     for src, n in Counter(r["source"] for r in unique).most_common():
         print(f"    {src:<42} {n:>5}")
-
-    total_par = 0
-    for pf in sorted((OUT / "parallel").glob("*.jsonl")):
-        with open(pf, encoding="utf-8") as f:
-            n = sum(1 for _ in f)
-        total_par += n
-        print(f"  [parallel] {pf.name:<38} {n:>5} pairs")
-    print(f"  Total parallel pairs             : {total_par:,}")
     print(f"{'='*54}")
     print(f"  Output directory: {OUT.resolve()}")
 
