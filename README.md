@@ -173,14 +173,9 @@ All source texts were digitised by the [Centre for Edo Studies](https://centrefo
 **Last Updated:** May 2026  
 **License:** Public Domain (all sources are public domain digitisations)
 
-# references
-
-(website for source):
+# References
 
 1. Centre for Ẹdo Studies. (2025, October 27). Centre for Ẹdo Studies. https://centreforedostudies.be/
-
-(individual citations):
-
 2. Agheyisi, R. N. (1986). An Ẹdo-English dictionary. Ethiope Publishing Corporation.
 3. Melzian, H. (1937). A concise dictionary of the Bini language of Southern Nigeria. Kegan Paul, Trench, Trubner & Co.
 4. Thomas, N. W. (1910). Anthropological report on the Edo-speaking peoples of Nigeria. Harrison and Sons.
