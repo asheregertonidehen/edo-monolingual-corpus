@@ -1,4 +1,4 @@
-# edo-monolingual-corpus
+# edo-monolingual-corpus (will add to paper)
 
 **this project aims to be ethical and does not contain any ED096/JW300 scraped data**
 
