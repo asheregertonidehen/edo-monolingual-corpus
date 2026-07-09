@@ -98,7 +98,7 @@ Each record contains:
 
 ### File Formats
 - **edo_cleaned.jsonl**: Structured format, one JSON record per line
-- **edo_cleaned.txt**: Plain text, one sentence per line (whitespace-separated, no newlines within records)
+- **edo_cleaned.txt**: Plain text, one sentence per line (whitespace-separated and no newlines within records)
 
 ## Data Cleaning & Normalization
 
